@@ -2,7 +2,7 @@
 var app = {};
 app.allMessages = {};
 app.lastUpdate = 0;
-app.server = 'https://api.parse.com/1/classes/chatterbox';
+app.server = 'http://127.0.0.1:3000/classes/messages';
 app.friendList = [];
 
 // pull messages data
@@ -83,12 +83,14 @@ app.send = function(messageData) {
     data: JSON.stringify(message),
     contentType: 'application/json',
     success: function (data) {
+      console.log("SUCCESS");
       //upon success, pull in new data (so you can see your new post)
       app.fetch();
       $("[type='text']").val('');
       console.log('chatterbox: Message sent');
     },
     error: function (data) {
+      console.log("ERROR");
       console.error('chatterbox: Failed to send message');
     }
   });
