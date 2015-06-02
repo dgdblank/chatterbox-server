@@ -13,6 +13,7 @@ app.fetch = function() {
     contentType: 'application/json',
     success: function (data) {
       app.populateMessages(data.results, app.lastUpdate);
+      app.lastUpdate = new Date();
       app.addRooms();
       $('.message-container-title').text("All Messages");
     },
@@ -31,7 +32,7 @@ app.sanitize = function (string) {
 // use startTime to determine from what point on we should add messages
 app.populateMessages = function(messages, startTime) {
   app.lastUpdate = messages[0].createdAt;
-  _.each(messages.reverse(), function(message) {
+  _.each(messages, function(message) {
     if (moment(message.createdAt).isAfter(startTime)) {
       app.addMessage(message);
     }
@@ -74,7 +75,8 @@ app.send = function(messageData) {
   var message = {
     'username': messageData.username,
     'text': messageData.text,
-    'roomname': messageData.roomname
+    'roomname': messageData.roomname,
+    'createdAt' : new Date()
   };
 
   $.ajax({
@@ -85,7 +87,6 @@ app.send = function(messageData) {
     success: function (data) {
       console.log("SUCCESS");
       //upon success, pull in new data (so you can see your new post)
-      app.fetch();
       $("[type='text']").val('');
       console.log('chatterbox: Message sent');
     },
@@ -187,7 +188,8 @@ var togglePostForm = function() {
 
 $(document).ready(function(){
   //load messages
-  app.fetch();
+  setInterval(app.fetch, 1000);
+
 
   // Hide new post form when page loads
   $('#form-container').hide();
