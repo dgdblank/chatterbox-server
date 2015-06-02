@@ -39,6 +39,7 @@ var requestHandler = function(request, response) {
 
   if( request.method === 'OPTIONS'){
     response.writeHead(200, headers);
+    console.log("OPTION");
     response.end();
   } else {
 
@@ -70,13 +71,13 @@ var requestHandler = function(request, response) {
       var body = '';
       response.writeHead(201, headers);
       request.on('data', function(data) {
+        // console.log("POST REQUEST");
         body += data;
       });
 
       request.on('end', function() {
         database.results.push(JSON.parse(body));
-        console.log(database);
-        response.end('Posted');
+        response.end();
       });
     }
   }

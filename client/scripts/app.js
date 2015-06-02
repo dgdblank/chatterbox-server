@@ -90,8 +90,12 @@ app.send = function(messageData) {
       $("[type='text']").val('');
       console.log('chatterbox: Message sent');
     },
-    error: function (data) {
-      console.log("ERROR");
+    error: function (xhr, textStatus, error) {
+      console.log(xhr.statusText)
+      console.log(textStatus);
+      console.log(error);
+
+      // console.log("ERROR");
       console.error('chatterbox: Failed to send message');
     }
   });
