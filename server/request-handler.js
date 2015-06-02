@@ -29,8 +29,8 @@ var requestHandler = function(request, response) {
   // console.logs in your code.
 
 
-  if( request.method === "GET" ) {
-    if(request.url === '/classes/messages'){
+  if( request.method === "GET" ){
+    if((/\/classes\/\w{1,}/).test(request.url)){
       console.log("Serving request type " + request.method + " for url " + request.url);
       // See the note below about CORS headers.
       var headers = defaultCorsHeaders;
@@ -60,7 +60,7 @@ var requestHandler = function(request, response) {
     // node to actually send all the data over to the client.
 
   if( request.method === "POST" ){
-    if(request.url === '/classes/messages'){
+    if((/\/classes\/\w{1,}/).test(request.url)){
 
       var body = '';
       response.writeHead(201, headers);
