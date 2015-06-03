@@ -2,7 +2,7 @@
 var app = {};
 app.allMessages = {};
 app.lastUpdate = 0;
-app.server = 'http://127.0.0.1:3000/classes/messages';
+app.server = 'http://127.0.0.1:3000/classes/chatterbox';
 app.friendList = [];
 
 // pull messages data
