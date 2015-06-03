@@ -59,6 +59,8 @@ var requestHandler = function(request, response) {
   }
   else if( (/\//).test(request.url) ) {
     console.log("HOME PAGE");
+    response.writeHead(200, headers);
+    response.end(index);
   }
   else {
     console.log(request.url);
